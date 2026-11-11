@@ -18,6 +18,7 @@ import {
   User,
 } from "lucide-react";
 import {
+  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -85,6 +86,7 @@ export function CommandMenuProvider({ children }: { children: React.ReactNode })
         title="Command menu"
         description="Jump to a section or project"
       >
+        <Command>
         <CommandInput placeholder="Search projects, sections, actions…" />
         <CommandList>
           <CommandEmpty>Nothing found.</CommandEmpty>
@@ -110,7 +112,7 @@ export function CommandMenuProvider({ children }: { children: React.ReactNode })
               >
                 <ProjectIcon name={p.icon} />
                 <span className="truncate">{p.title}</span>
-                <CommandShortcut className="font-mono">{p.period.split(" ").pop()}</CommandShortcut>
+                <CommandShortcut className="font-mono">{p.date.slice(0, 4)}</CommandShortcut>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -151,6 +153,7 @@ export function CommandMenuProvider({ children }: { children: React.ReactNode })
             ))}
           </CommandGroup>
         </CommandList>
+        </Command>
       </CommandDialog>
     </CommandMenuContext.Provider>
   );

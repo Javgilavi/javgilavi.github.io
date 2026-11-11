@@ -18,16 +18,21 @@ function RotatingWord({ words }: { words: readonly string[] }) {
     const id = setInterval(() => setI((v) => (v + 1) % words.length), 2400);
     return () => clearInterval(id);
   }, [words.length]);
+  const longest = Math.max(...words.map((w) => w.length));
+  // Monospace font: a fixed `ch` width keeps the line from jumping between words.
   return (
-    <span className="relative inline-flex overflow-hidden align-bottom">
-      <AnimatePresence mode="popLayout" initial={false}>
+    <span
+      className="relative inline-block h-[1.5em] overflow-hidden align-bottom"
+      style={{ width: `${longest}ch` }}
+    >
+      <AnimatePresence initial={false}>
         <motion.span
           key={words[i]}
           initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
           animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
           exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-block text-brand"
+          className="absolute inset-0 text-brand"
         >
           {words[i]}
         </motion.span>

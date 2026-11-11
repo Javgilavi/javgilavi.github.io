@@ -83,10 +83,12 @@ export function PerceptionField({ className }: { className?: string }) {
       }
 
       // detected objects: dense clusters with a bounding box
-      const count = w < 640 ? 3 : 5;
+      // keep objects on the right, away from the hero text (or near the bottom on phones)
+      const narrow = w < 768;
+      const count = narrow ? 3 : 5;
       for (let k = 0; k < count; k++) {
-        const cx = w * (0.35 + rand() * 0.6);
-        const cy = h * (0.18 + rand() * 0.55);
+        const cx = narrow ? w * (0.15 + rand() * 0.7) : w * (0.6 + (k / count) * 0.32 + rand() * 0.04);
+        const cy = narrow ? h * (0.78 + rand() * 0.1) : h * (0.2 + rand() * 0.55);
         const bw = 26 + rand() * 46;
         const bh = 22 + rand() * 56;
         const a = (Math.atan2(cy - oy, cx - ox) + TAU) % TAU;
@@ -113,8 +115,8 @@ export function PerceptionField({ className }: { className?: string }) {
         const lit = Math.exp(-d * 7);
         const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
         const hover = md < 140 ? (1 - md / 140) ** 2 : 0;
-        const base = p.obj >= 0 ? 0.22 : 0.1;
-        const alpha = Math.min(1, base + lit * (p.obj >= 0 ? 0.9 : 0.55) + hover * 0.7);
+        const base = p.obj >= 0 ? 0.28 : 0.14;
+        const alpha = Math.min(1, base + lit * (p.obj >= 0 ? 0.9 : 0.6) + hover * 0.7);
         const s = p.obj >= 0 ? 1.6 : 1.2 + hover * 0.8;
         ctx.fillStyle = lit > 0.25 || hover > 0.2 || p.obj >= 0 ? `rgba(${brand}, ${alpha})` : `rgba(${fg}, ${alpha})`;
         ctx.fillRect(p.x - s / 2, p.y - s / 2, s, s);

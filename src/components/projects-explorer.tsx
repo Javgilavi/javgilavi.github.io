@@ -31,8 +31,8 @@ export function ProjectsExplorer() {
 
   return (
     <div>
-      <div className="sticky top-20 z-30 -mx-2 mb-10 flex flex-col gap-3 rounded-2xl border bg-background/80 p-2 backdrop-blur-xl md:flex-row md:items-center">
-        <div className="flex gap-1 overflow-x-auto [scrollbar-width:none]">
+      <div className="sticky top-20 z-30 -mx-2 mb-10 flex flex-col gap-3 rounded-2xl border bg-background/80 p-2 backdrop-blur-xl lg:flex-row lg:items-center">
+        <div className="flex gap-1 overflow-x-auto [scrollbar-width:none] lg:flex-wrap">
           {(["All", ...categories] as const).map((c) => (
             <button
               key={c}
@@ -51,8 +51,8 @@ export function ProjectsExplorer() {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2 md:ml-auto">
-          <label className="flex flex-1 items-center gap-2 rounded-xl border bg-card px-3 py-1.5 md:w-64 md:flex-none">
+        <div className="flex items-center gap-2 lg:ml-auto">
+          <label className="flex flex-1 items-center gap-2 rounded-xl border bg-card px-3 py-1.5 lg:w-56 lg:flex-none">
             <Search className="size-4 text-muted-foreground" />
             <input
               value={q}

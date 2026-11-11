@@ -107,7 +107,7 @@ export function Work() {
                 <ProjectIcon name={p.icon} className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-brand" />
                 <span className="font-medium">{p.title}</span>
                 <span className="hidden truncate text-sm text-muted-foreground sm:block">{p.tagline}</span>
-                <span className="ml-auto shrink-0 font-mono text-xs text-muted-foreground">{p.period.split(" ").pop()}</span>
+                <span className="ml-auto shrink-0 font-mono text-xs text-muted-foreground">{p.date.slice(0, 4)}</span>
                 <ArrowUpRight className="size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>
             </li>

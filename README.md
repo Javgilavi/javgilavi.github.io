@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Javier Gil Avilés — Portfolio
 
-## Getting Started
+Personal portfolio of **Javier Gil Avilés**, Perception & AI Robotics Engineer (MSc Robotics, TU Delft).
 
-First, run the development server:
+**Live:** https://javgilavi.github.io/portfolio/
+
+## Stack
+
+- [Next.js](https://nextjs.org) (App Router, static export) + TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com) (Radix): button, dialog, command, sheet, tooltip, sonner…
+- [Aceternity UI](https://ui.aceternity.com): spotlight, text-generate effect, glowing card border, scroll timeline
+- [Motion](https://motion.dev) for reveal, layout and page animations
+- A custom canvas "perception field" in the hero: LiDAR-style scan rings, a sweeping beam and live detections
+
+## Features
+
+- Dark / light theme, `⌘K` / `Ctrl+K` command menu to jump to any section or project
+- Projects explorer with category filters, search and grid / list views
+- A detail page per project: overview, results, highlights, stack, links and a gallery with lightbox
+- Videos only play while they are on screen; reduced-motion users get static visuals
+
+## Editing content
+
+All content lives in two typed files:
+
+| File | What |
+| --- | --- |
+| `src/data/profile.ts` | bio, stats, experience, education, leadership, awards, skills, socials |
+| `src/data/projects.ts` | every project: text, results, stack, links, cover and gallery media |
+
+Media lives in `public/media/<project>/`. Use WebP for images (≤1600 px wide) and short muted
+H.264 MP4 loops with a `-poster.webp`, for example:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ffmpeg -i input.png -vf "scale='min(1600,iw)':-2" -c:v libwebp -quality 80 public/media/my-project/cover.webp
+ffmpeg -ss 0 -t 10 -i input.mp4 -an -vf "scale='min(1280,iw)':-2" -c:v libx264 -crf 28 -pix_fmt yuv420p -movflags +faststart public/media/my-project/clip.mp4
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # static export to ./out
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Every push to `main` builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`.
+The workflow sets `NEXT_PUBLIC_BASE_PATH=/<repo-name>`, so the site works as a project page.
+To serve it from a custom domain or from `<user>.github.io` root, set that variable to an empty string.
