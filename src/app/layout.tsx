@@ -9,7 +9,7 @@ import "./globals.css";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://javgilavi.github.io/portfolio";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://javgilavi.github.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
