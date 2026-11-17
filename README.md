@@ -19,6 +19,7 @@ Personal portfolio of **Javier Gil Avilés**, Perception & AI Robotics Engineer 
 - Projects explorer with category filters, search and grid / list views
 - A detail page per project: overview, results, highlights, stack, links and a gallery with lightbox
 - Videos only play while they are on screen; reduced-motion users get static visuals
+- Sitemap, robots.txt, canonical URLs, JSON-LD and a link-preview image (`public/og.png`) for search and sharing
 
 ## Editing content
 

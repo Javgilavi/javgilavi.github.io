@@ -42,6 +42,30 @@ export function About() {
               <p className="text-lg leading-relaxed text-muted-foreground first:text-foreground">{p}</p>
             </Reveal>
           ))}
+          <Reveal delay={0.15} className="rounded-2xl border bg-card p-5">
+            <h3 className="mb-3 flex items-center gap-2 font-mono text-xs tracking-widest text-muted-foreground uppercase">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-brand" />
+              </span>
+              Now
+            </h3>
+            <ul className="space-y-2">
+              {profile.now.map((n) => (
+                <li key={n.text} className="flex gap-3 text-sm leading-relaxed">
+                  <span className="mt-2 size-1 shrink-0 rounded-full bg-brand" />
+                  {n.href ? (
+                    <Link href={n.href} className="group inline-flex items-center gap-1 hover:text-brand">
+                      {n.text}
+                      <ArrowUpRight className="size-3.5 text-muted-foreground transition-colors group-hover:text-brand" />
+                    </Link>
+                  ) : (
+                    <span>{n.text}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
           <Reveal delay={0.2}>
             <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-4">
               {profile.stats.map((s) => (
@@ -125,7 +149,7 @@ export function Experience() {
         index="03"
         label="Experience"
         title="Industry & research."
-        description="From maritime tracking at a robotics lab to middleware used across the ROS 2 ecosystem."
+        description="From maritime tracking at a robotics lab and middleware used across the ROS 2 ecosystem to applied AI tooling."
       />
       <Timeline
         data={experience.map((e) => ({
@@ -186,9 +210,9 @@ export function Skills() {
           ))}
         </div>
       </div>
-      <div className="mx-auto grid max-w-5xl gap-4 px-6 sm:grid-cols-2">
+      <div className="mx-auto grid max-w-5xl gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((g, i) => (
-          <Reveal key={g.group} delay={(i % 2) * 0.06} className="rounded-2xl border bg-card p-6">
+          <Reveal key={g.group} delay={(i % 3) * 0.06} className="rounded-2xl border bg-card p-6">
             <h3 className="mb-4 flex items-center gap-2 text-sm font-medium">
               <span className="font-mono text-xs text-brand">0{i + 1}</span>
               {g.group}
@@ -239,7 +263,7 @@ export function EducationLeadership() {
                 <li className="rounded-2xl border bg-card p-5">
                   <div className="flex items-baseline justify-between gap-3">
                     <h4 className="font-semibold tracking-tight">{l.title}</h4>
-                    <span className="shrink-0 font-mono text-xs text-muted-foreground">{l.period}</span>
+                    {l.period && <span className="shrink-0 font-mono text-xs text-muted-foreground">{l.period}</span>}
                   </div>
                   <p className="text-sm text-brand">{l.org}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.detail}</p>
@@ -256,7 +280,19 @@ export function EducationLeadership() {
             <li key={a.title} className="flex items-start gap-4 p-4 sm:items-center">
               <Award className="mt-0.5 size-4 shrink-0 text-brand sm:mt-0" />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium">{a.title}</p>
+                {a.href ? (
+                  <a
+                    href={a.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1 text-sm font-medium hover:text-brand"
+                  >
+                    {a.title}
+                    <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-brand" />
+                  </a>
+                ) : (
+                  <p className="text-sm font-medium">{a.title}</p>
+                )}
                 <p className="text-xs text-muted-foreground">{a.detail}</p>
               </div>
               <span className="font-mono text-xs text-muted-foreground">{a.year}</span>

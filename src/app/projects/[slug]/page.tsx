@@ -9,6 +9,7 @@ import { GeneratedCover, ProjectMedia } from "@/components/project-media";
 import { ProjectIcon } from "@/components/project-icon";
 import { GithubIcon } from "@/components/brand-icons";
 import { getProject, projects, sortedProjects, type LinkKind } from "@/data/projects";
+import { ogImage } from "@/lib/site";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   return {
     title: p.title,
     description: p.tagline,
-    openGraph: { title: p.title, description: p.tagline },
+    alternates: { canonical: `/projects/${p.slug}/` },
+    openGraph: { type: "article", title: p.title, description: p.tagline, url: `/projects/${p.slug}/`, images: [ogImage] },
   };
 }
 

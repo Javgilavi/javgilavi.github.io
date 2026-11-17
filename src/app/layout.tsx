@@ -4,12 +4,29 @@ import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { profile } from "@/data/profile";
+import { ogImage, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://javgilavi.github.io";
+// Structured data so search engines can connect this site to the person behind it.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  alternateName: profile.shortName,
+  jobTitle: profile.role,
+  description: profile.headline,
+  url: siteUrl,
+  email: `mailto:${profile.email}`,
+  sameAs: Object.values(profile.socials),
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Delft University of Technology" },
+    { "@type": "CollegeOrUniversity", name: "University of Seville" },
+  ],
+  knowsAbout: ["Robotics", "Computer vision", "Sensor fusion", "Physical AI", "Robot learning", "ROS 2"],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -35,8 +52,9 @@ export const metadata: Metadata = {
     description: profile.headline,
     url: siteUrl,
     siteName: profile.name,
+    images: [ogImage],
   },
-  twitter: { card: "summary_large_image", creator: "@Javgilavi_18" },
+  twitter: { card: "summary_large_image", creator: "@Javgilavi_18", images: [ogImage.url] },
 };
 
 export const viewport: Viewport = {
@@ -54,6 +72,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
         <Providers>
           <SiteHeader />
           <main className="flex-1">{children}</main>
