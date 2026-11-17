@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
-// Deployed to GitHub Pages. CI sets this to "" for the <user>.github.io repo (served at the
-// domain root) and to /<repo-name> for any other repo (served as a project page).
+// Deployed to GitHub Pages. CI reads the Pages URL and sets this to "" when the site is served
+// at a domain root (custom domain or <user>.github.io) and to /<repo-name> for a project page.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {

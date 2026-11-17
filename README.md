@@ -2,7 +2,7 @@
 
 Personal portfolio of **Javier Gil Avilés**, Perception & AI Robotics Engineer (MSc Robotics, TU Delft).
 
-**Live:** https://javgilavi.github.io/
+**Live:** https://javiergil.dev/
 
 ## Stack
 
@@ -49,6 +49,7 @@ pnpm build      # static export to ./out
 ## Deployment
 
 Every push to `main` builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`.
-The workflow picks the base path from the repo name: a repo named `<user>.github.io` is served
-from the domain root (`NEXT_PUBLIC_BASE_PATH=""`), any other repo as a project page under
-`/<repo-name>`. For a custom domain, set `NEXT_PUBLIC_BASE_PATH` to an empty string.
+The workflow asks GitHub Pages where the site is served (`actions/configure-pages`) and builds
+for that address: a custom domain or a repo named `<user>.github.io` builds at the root
+(`NEXT_PUBLIC_BASE_PATH=""`), any other repo as a project page under `/<repo-name>`. After
+adding or changing a custom domain in Settings → Pages, re-run the workflow.
