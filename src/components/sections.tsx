@@ -149,7 +149,7 @@ export function Experience() {
         index="03"
         label="Experience"
         title="Industry & research."
-        description="From maritime tracking at a robotics lab and middleware used across the ROS 2 ecosystem to applied AI tooling."
+        description="From maritime tracking and ROS 2 middleware to computer vision research at Hilti and ETH Zurich."
       />
       <Timeline
         data={experience.map((e) => ({
