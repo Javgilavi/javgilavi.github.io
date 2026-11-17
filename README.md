@@ -2,7 +2,7 @@
 
 Personal portfolio of **Javier Gil Avilés**, Perception & AI Robotics Engineer (MSc Robotics, TU Delft).
 
-**Live:** https://javgilavi.github.io/portfolio/
+**Live:** https://javiergil.dev/
 
 ## Stack
 
@@ -19,6 +19,7 @@ Personal portfolio of **Javier Gil Avilés**, Perception & AI Robotics Engineer 
 - Projects explorer with category filters, search and grid / list views
 - A detail page per project: overview, results, highlights, stack, links and a gallery with lightbox
 - Videos only play while they are on screen; reduced-motion users get static visuals
+- Sitemap, robots.txt, canonical URLs, JSON-LD and a link-preview image (`public/og.png`) for search and sharing
 
 ## Editing content
 
@@ -48,5 +49,7 @@ pnpm build      # static export to ./out
 ## Deployment
 
 Every push to `main` builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`.
-The workflow sets `NEXT_PUBLIC_BASE_PATH=/<repo-name>`, so the site works as a project page.
-To serve it from a custom domain or from `<user>.github.io` root, set that variable to an empty string.
+The workflow asks GitHub Pages where the site is served (`actions/configure-pages`) and builds
+for that address: a custom domain or a repo named `<user>.github.io` builds at the root
+(`NEXT_PUBLIC_BASE_PATH=""`), any other repo as a project page under `/<repo-name>`. After
+adding or changing a custom domain in Settings → Pages, re-run the workflow.

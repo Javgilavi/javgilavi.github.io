@@ -6,6 +6,7 @@ import { projects } from "@/data/projects";
 export const metadata: Metadata = {
   title: "Projects",
   description: "Robotics, perception, physical AI and software projects by Javier Gil Avilés.",
+  alternates: { canonical: "/projects/" },
 };
 
 export default function ProjectsPage() {

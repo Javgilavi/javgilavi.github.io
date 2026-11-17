@@ -17,11 +17,19 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-      NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v6
+      # Ask GitHub Pages where the site is served: a custom domain (e.g. javiergil.dev) or
+      # <owner>.github.io build at the root, any other repo under /<repo-name>.
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Configure site paths
+        env:
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          echo "NEXT_PUBLIC_BASE_PATH=${BASE_PATH%/}" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SITE_URL=${BASE_URL%/}" >> "$GITHUB_ENV"
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:

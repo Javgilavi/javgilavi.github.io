@@ -17,18 +17,23 @@ export const profile = {
   ],
   about: [
     "I'm a Spanish robotics engineer, born in Buenos Aires and trained in Seville. After a BSc and an MSc in electronics, robotics and automation at the University of Seville (top 10% and top 5%), I moved to the Netherlands for a second MSc in Robotics at TU Delft, focused on computer vision and AI.",
-    "Before Delft I worked on real systems: multi-obstacle tracking for a Navantia unmanned surface vessel at the GRVC lab, and Fast DDS middleware plus the SustainML backend at eProsima. Today I spend my time on 3D perception, vision-language-action policies and hackathon builds with real arms and humanoids.",
+    "Before Delft I worked on real systems: multi-obstacle tracking for a Navantia unmanned surface vessel at the GRVC lab, and Fast DDS middleware plus the SustainML backend at eProsima. Today I spend my time on 3D perception, vision-language-action policies and hackathon builds with real arms and humanoids, alongside part-time AI engineering at VIKTOR.",
     "Outside the lab I connect students with industry as External Affairs at ASIMOV and lead perception for the Delft Neptunians underwater robotics team.",
   ],
+  now: [
+    { text: "MSc Robotics at TU Delft, computer vision & AI track" },
+    { text: "AI Engineer (part-time) at VIKTOR, building MCP and RAG tooling" },
+    { text: "Building memcard, a social diary for video games", href: "/projects/memcard" },
+  ] as { text: string; href?: string }[],
   stats: [
     { value: "2+", label: "years in industry & research" },
     { value: "20+", label: "robotics & AI projects" },
-    { value: "4", label: "physical-AI hackathons in 2026" },
+    { value: "5", label: "hackathons in 2026, four on real robots" },
     { value: "Top 5%", label: "MSc, University of Seville" },
   ],
   socials: {
     github: "https://github.com/Javgilavi",
-    linkedin: "https://www.linkedin.com/in/javier-gil-avil%C3%A9s-1854aa235/",
+    linkedin: "https://www.linkedin.com/in/javigilaviles/",
     x: "https://x.com/Javgilavi_18",
   },
   languages: [
@@ -51,6 +56,17 @@ export type Experience = {
 };
 
 export const experience: Experience[] = [
+  {
+    company: "VIKTOR",
+    role: "AI Engineer (part-time)",
+    period: "Mar 2026 — present",
+    location: "Rotterdam, Netherlands",
+    href: "https://www.viktor.ai",
+    points: [
+      "R&D on internal AI tooling, including Model Context Protocol (MCP) servers and retrieval-augmented generation (RAG).",
+    ],
+    tags: ["MCP", "RAG", "LLM tooling"],
+  },
   {
     company: "eProsima",
     role: "Robotics Software Engineer",
@@ -108,7 +124,7 @@ export const education = [
     degree: "MSc Robotics",
     period: "2025 — present",
     detail:
-      "Computer vision & AI track: Machine Learning for Robotics, Advanced Machine Perception, Computer Vision, 3D Vision.",
+      "Computer vision & AI track: Machine Learning for Robotics, Advanced Machine Perception, Computer Vision, 3D Vision. Honours Programme student.",
   },
   {
     school: "University of Seville",
@@ -126,11 +142,11 @@ export const education = [
   },
 ];
 
-export const leadership = [
+export const leadership: { title: string; org: string; detail: string; period?: string }[] = [
   {
     title: "External Affairs, ASIMOV",
-    org: "TU Delft robotics study association",
-    detail: "Connecting more than 650 robotics engineers with leading companies, partners and hackathons.",
+    org: "TU Delft robotics study association · VI Board",
+    detail: "Connecting more than 650 robotics engineers with companies such as MathWorks, NVIDIA and Festo, and with events and hackathons.",
     period: "2025 — present",
   },
   {
@@ -151,30 +167,49 @@ export const leadership = [
     detail: "Organized events linking engineering students and companies. Winner of the TIMES 2021 local round and 2nd in the Karlstad semifinal.",
     period: "2024 — 2025",
   },
+  {
+    title: "Member, The Exponential Fellowship",
+    org: "Spanish AI & software community",
+    detail: "Part of a network of young software and AI builders from Spain.",
+  },
 ];
 
-export const awards = [
-  { title: "Innovation Prize — XIX Entrepreneurship Ideas Competition", detail: "ServiAgro · University of Seville & Chamber of Commerce", year: "2024" },
+export const awards: { title: string; detail: string; year: string; href?: string }[] = [
+  {
+    title: "Innovation Prize — XIX Entrepreneurship Ideas Competition",
+    detail: "ServiAgro · University of Seville & Chamber of Commerce",
+    year: "2024",
+    href: "https://etsi.us.es/noticias/actualidad-alumnos/el-alumnado-de-la-escuela-tecnica-superior-de-ingenieria-protagonistas-del-xix-concurso-de-ideas-de-emprendimiento-de-la-us",
+  },
   { title: "Lane-detection lead — Autonomous Driving Challenge", detail: "SEAT × CUPRA × Volkswagen, University of Seville team", year: "2022" },
   { title: "TIMES 2021 — 1st local round, 2nd Karlstad semifinal", detail: "ESTIEM international case-study competition", year: "2021" },
   { title: "IBM — AI Fundamentals with Capstone", detail: "Certification", year: "2025" },
+  { title: "Business for All", detail: "Certification · Harvard Business Publishing × Santander Open Academy", year: "2024" },
 ];
 
 export const skills = [
   {
     group: "Perception",
-    items: ["Computer vision", "3D detection", "Visual SLAM", "Sensor fusion", "Kalman filters", "Multi-object tracking", "OpenCV", "YOLO / YOLOE", "MediaPipe", "DINOv2 / v3"],
+    items: ["Computer vision", "3D detection", "Visual SLAM", "Sensor fusion", "Kalman filters", "Multi-object tracking", "Particle filters", "Gaussian splatting", "OpenCV", "YOLO / YOLOE", "MediaPipe", "DINOv2 / v3"],
   },
   {
-    group: "Robot learning & AI",
-    items: ["PyTorch", "VLA / ACT policies", "LoRA fine-tuning", "World models", "LLM agents", "MCP", "RAG", "Knowledge distillation"],
+    group: "Robot learning",
+    items: ["PyTorch", "VLA / ACT policies", "LoRA fine-tuning", "World models", "Knowledge distillation", "LeRobot", "Teleoperation datasets", "Hugging Face", "SLURM / HPC"],
   },
   {
-    group: "Robotics",
-    items: ["ROS 2", "Fast DDS", "Nav2", "RTAB-Map", "MPC", "PRM / RRT*", "PDDL / PlanSys2", "LeRobot", "MuJoCo", "Gazebo", "PyBullet", "Webots"],
+    group: "Robotics & simulation",
+    items: ["ROS 2", "Fast DDS", "Nav2", "RTAB-Map", "MPC", "PRM / RRT*", "PDDL / PlanSys2", "Behavior trees", "MuJoCo", "Gazebo", "PyBullet", "Webots", "Isaac Lab"],
   },
   {
-    group: "Engineering",
-    items: ["C++", "Python", "C", "TypeScript", "MATLAB", "SQL", "Docker", "Linux", "CMake", "SLURM / HPC", "FastAPI", "Qt / QML", "Next.js"],
+    group: "Agents & LLMs",
+    items: ["LLM agents", "MCP", "RAG", "Claude / Claude Code", "Amazon Bedrock", "Ollama", "Playwright", "Speech (Whisper, ElevenLabs)"],
+  },
+  {
+    group: "Software engineering",
+    items: ["C++", "Python", "C", "MATLAB", "SQL", "CMake", "SWIG", "Qt / QML", "Linux", "Docker", "Git", "GitHub Actions"],
+  },
+  {
+    group: "Web & cloud",
+    items: ["TypeScript", "Next.js", "React", "Tailwind CSS", "FastAPI", "PostgreSQL", "REST APIs", "Vercel", "AWS (EC2, S3)", "Chrome extensions"],
   },
 ];
