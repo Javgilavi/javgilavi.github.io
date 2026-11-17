@@ -27,9 +27,11 @@ jobs:
         env:
           BASE_URL: ${{ steps.pages.outputs.base_url }}
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        # Pages reports http:// until "Enforce HTTPS" is on; the site is always served over HTTPS.
         run: |
+          url="${BASE_URL%/}"
           echo "NEXT_PUBLIC_BASE_PATH=${BASE_PATH%/}" >> "$GITHUB_ENV"
-          echo "NEXT_PUBLIC_SITE_URL=${BASE_URL%/}" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SITE_URL=https://${url#http*://}" >> "$GITHUB_ENV"
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
