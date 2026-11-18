@@ -341,7 +341,6 @@ export const projects: Project[] = [
     role: "Planning and MPC development",
     team: "Francesco Marani, Javier Gil, Núria Seguí, Simone Utili",
     icon: "tray",
-    featured: true,
     stack: ["Python", "PyBullet", "MPC", "PRM", "RRT / RRT*", "Inverse kinematics"],
     cover: { type: "image", src: m("barista", "env.webp"), alt: "Albert mobile manipulator in the bar environment" },
     gallery: [

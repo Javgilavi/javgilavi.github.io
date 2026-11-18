@@ -17,11 +17,11 @@ import { asset } from "@/lib/utils";
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <section id="about" className="mx-auto max-w-5xl px-6 py-16 sm:py-32">
       <SectionHeading index="01" label="About" title="Robots that see, understand and act." />
       <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <Reveal className="relative">
-          <div className="group relative overflow-hidden rounded-2xl border bg-surface">
+          <div className="elevated group relative overflow-hidden rounded-2xl border bg-surface">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={asset("/media/me.webp")}
@@ -42,7 +42,7 @@ export function About() {
               <p className="text-lg leading-relaxed text-muted-foreground first:text-foreground">{p}</p>
             </Reveal>
           ))}
-          <Reveal delay={0.15} className="rounded-2xl border bg-card p-5">
+          <Reveal delay={0.15} className="elevated rounded-2xl border bg-card p-5">
             <h3 className="mb-3 flex items-center gap-2 font-mono text-xs tracking-widest text-muted-foreground uppercase">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
@@ -67,9 +67,9 @@ export function About() {
             </ul>
           </Reveal>
           <Reveal delay={0.2}>
-            <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-4">
+            <dl className="elevated mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-4">
               {profile.stats.map((s) => (
-                <div key={s.label} className="bg-background p-4">
+                <div key={s.label} className="bg-card p-4 dark:bg-background">
                   <dt className="text-2xl font-semibold tracking-tight">{s.value}</dt>
                   <dd className="mt-1 text-xs leading-snug text-muted-foreground">{s.label}</dd>
                 </div>
@@ -94,7 +94,7 @@ export function Work() {
   const [first, ...rest] = featuredProjects;
   const others = sortedProjects.filter((p) => !p.featured).slice(0, 6);
   return (
-    <section id="work" className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <section id="work" className="mx-auto max-w-5xl px-6 py-16 sm:py-32">
       <SectionHeading
         index="02"
         label="Selected work"
@@ -108,7 +108,7 @@ export function Work() {
           </Button>
         }
       />
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Reveal className="md:col-span-2">
           <ProjectCard project={first} wide />
         </Reveal>
@@ -144,7 +144,7 @@ export function Work() {
 
 export function Experience() {
   return (
-    <section id="experience" className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <section id="experience" className="mx-auto max-w-5xl px-6 py-16 sm:py-32">
       <SectionHeading
         index="03"
         label="Experience"
@@ -156,7 +156,7 @@ export function Experience() {
           title: e.company,
           subtitle: `${e.period} · ${e.location}`,
           content: (
-            <Reveal className="rounded-2xl border bg-card p-6">
+            <Reveal className="elevated rounded-2xl border bg-card p-5 sm:p-6">
               <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
                 <h4 className="text-lg font-semibold tracking-tight">{e.role}</h4>
                 {e.href && (
@@ -197,7 +197,7 @@ export function Experience() {
 export function Skills() {
   const all = skills.flatMap((g) => g.items);
   return (
-    <section id="skills" className="py-24 sm:py-32">
+    <section id="skills" className="py-16 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading index="04" label="Toolbox" title="Skills & tools." />
       </div>
@@ -210,9 +210,9 @@ export function Skills() {
           ))}
         </div>
       </div>
-      <div className="mx-auto grid max-w-5xl gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((g, i) => (
-          <Reveal key={g.group} delay={(i % 3) * 0.06} className="rounded-2xl border bg-card p-6">
+          <Reveal key={g.group} delay={(i % 3) * 0.06} className="elevated rounded-2xl border bg-card p-6">
             <h3 className="mb-4 flex items-center gap-2 text-sm font-medium">
               <span className="font-mono text-xs text-brand">0{i + 1}</span>
               {g.group}
@@ -237,15 +237,15 @@ export function Skills() {
 
 export function EducationLeadership() {
   return (
-    <section id="education" className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <section id="education" className="mx-auto max-w-5xl px-6 py-16 sm:py-32">
       <SectionHeading index="05" label="Education & leadership" title="Learning, leading, competing." />
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         <div>
           <h3 className="mb-4 font-mono text-xs tracking-widest text-muted-foreground uppercase">Education</h3>
           <ol className="space-y-4">
             {education.map((e, i) => (
               <Reveal key={e.degree} delay={i * 0.05}>
-                <li className="rounded-2xl border bg-card p-5">
+                <li className="elevated rounded-2xl border bg-card p-5">
                   <p className="font-mono text-xs text-muted-foreground">{e.period}</p>
                   <h4 className="mt-1 font-semibold tracking-tight">{e.degree}</h4>
                   <p className="text-sm text-brand">{e.school}</p>
@@ -260,7 +260,7 @@ export function EducationLeadership() {
           <ol className="space-y-4">
             {leadership.map((l, i) => (
               <Reveal key={l.title} delay={i * 0.05}>
-                <li className="rounded-2xl border bg-card p-5">
+                <li className="elevated rounded-2xl border bg-card p-5">
                   <div className="flex items-baseline justify-between gap-3">
                     <h4 className="font-semibold tracking-tight">{l.title}</h4>
                     {l.period && <span className="shrink-0 font-mono text-xs text-muted-foreground">{l.period}</span>}
@@ -275,7 +275,7 @@ export function EducationLeadership() {
       </div>
       <Reveal className="mt-12">
         <h3 className="mb-4 font-mono text-xs tracking-widest text-muted-foreground uppercase">Awards & certifications</h3>
-        <ul className="divide-y rounded-2xl border bg-card">
+        <ul className="elevated divide-y rounded-2xl border bg-card">
           {awards.map((a) => (
             <li key={a.title} className="flex items-start gap-4 p-4 sm:items-center">
               <Award className="mt-0.5 size-4 shrink-0 text-brand sm:mt-0" />
@@ -313,10 +313,10 @@ export function Contact() {
     setTimeout(() => setCopied(false), 1800);
   };
   return (
-    <section id="contact" className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <Reveal className="relative overflow-hidden rounded-3xl border bg-card px-6 py-16 text-center sm:px-16">
+    <section id="contact" className="mx-auto max-w-5xl px-6 py-16 sm:py-32">
+      <Reveal className="elevated relative overflow-hidden rounded-3xl border bg-card px-6 py-16 text-center sm:px-16">
         <div className="pointer-events-none absolute inset-0 bg-grid mask-radial opacity-60" />
-        <div className="pointer-events-none absolute -top-24 left-1/2 size-72 -translate-x-1/2 rounded-full bg-brand/20 blur-3xl" />
+        <div className="pointer-events-none absolute -top-24 left-1/2 size-72 -translate-x-1/2 rounded-full bg-brand/25 blur-3xl dark:bg-brand/20" />
         <div className="relative">
           <p className="mb-3 font-mono text-xs tracking-widest text-muted-foreground uppercase">
             <span className="text-brand">06</span> — Contact

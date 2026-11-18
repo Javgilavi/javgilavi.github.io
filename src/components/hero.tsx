@@ -58,7 +58,11 @@ export function Hero() {
           gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(168, 80%, 85%, .03) 0, hsla(168, 80%, 45%, .01) 80%, transparent 100%)"
         />
       </div>
-      <PerceptionField className="absolute inset-0 -z-10 h-full w-full mask-fade-b" />
+      <div className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(55%_60%_at_78%_18%,color-mix(in_oklch,var(--brand)_16%,transparent),transparent_70%)]" />
+        <div className="absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_65%_55%_at_72%_30%,black,transparent)]" />
+      </div>
+      <PerceptionField className="absolute inset-0 -z-10 h-full w-full mask-fade-b-soft md:mask-fade-b" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <div className="mx-auto w-full max-w-5xl px-6 pt-28 pb-20">

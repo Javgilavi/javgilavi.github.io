@@ -35,11 +35,14 @@ export function PerceptionField({ className }: { className?: string }) {
     const mouse = { x: -9999, y: -9999 };
     let brand = "45, 212, 191";
     let fg = "200, 205, 215";
+    let boost = 1;
 
     const readColors = () => {
       const dark = document.documentElement.classList.contains("dark");
-      brand = dark ? "94, 234, 212" : "13, 148, 136";
-      fg = dark ? "190, 196, 210" : "70, 75, 90";
+      brand = dark ? "94, 234, 212" : "13, 148, 128";
+      fg = dark ? "190, 196, 210" : "60, 72, 92";
+      // a light canvas needs more ink for the same presence
+      boost = dark ? 1 : 1.7;
     };
 
     // deterministic pseudo-random so the layout is stable between resizes
@@ -88,7 +91,7 @@ export function PerceptionField({ className }: { className?: string }) {
       const count = narrow ? 3 : 5;
       for (let k = 0; k < count; k++) {
         const cx = narrow ? w * (0.15 + rand() * 0.7) : w * (0.6 + (k / count) * 0.32 + rand() * 0.04);
-        const cy = narrow ? h * (0.78 + rand() * 0.1) : h * (0.2 + rand() * 0.55);
+        const cy = narrow ? h * (0.8 + rand() * 0.06) : h * (0.2 + rand() * 0.55);
         const bw = 26 + rand() * 46;
         const bh = 22 + rand() * 56;
         const a = (Math.atan2(cy - oy, cx - ox) + TAU) % TAU;
@@ -116,7 +119,7 @@ export function PerceptionField({ className }: { className?: string }) {
         const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
         const hover = md < 140 ? (1 - md / 140) ** 2 : 0;
         const base = p.obj >= 0 ? 0.28 : 0.14;
-        const alpha = Math.min(1, base + lit * (p.obj >= 0 ? 0.9 : 0.6) + hover * 0.7);
+        const alpha = Math.min(1, (base + lit * (p.obj >= 0 ? 0.9 : 0.6) + hover * 0.7) * boost);
         const s = p.obj >= 0 ? 1.6 : 1.2 + hover * 0.8;
         ctx.fillStyle = lit > 0.25 || hover > 0.2 || p.obj >= 0 ? `rgba(${brand}, ${alpha})` : `rgba(${fg}, ${alpha})`;
         ctx.fillRect(p.x - s / 2, p.y - s / 2, s, s);

@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         )}
       </Reveal>
 
-      <Reveal delay={0.1} className="mt-12 overflow-hidden rounded-2xl border bg-surface">
+      <Reveal delay={0.1} className="elevated mt-12 overflow-hidden rounded-2xl border bg-surface">
         <div className="aspect-video">
           {p.cover ? (
             <ProjectMedia media={p.cover} className={p.cover.contain ? "bg-white p-6 dark:bg-surface" : ""} />
@@ -112,7 +112,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           {p.results && (
             <section>
               <h2 className="mb-5 font-mono text-xs tracking-widest text-muted-foreground uppercase">Results</h2>
-              <dl className="grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-3">
+              <dl className="elevated grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-3">
                 {p.results.map((r) => (
                   <Reveal key={r.label} className="bg-card p-5">
                     <dt className="font-mono text-3xl font-semibold tracking-tight text-brand">{r.value}</dt>
@@ -128,7 +128,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             <ul className="space-y-3">
               {p.highlights.map((h, k) => (
                 <Reveal key={h} delay={k * 0.03}>
-                  <li className="flex gap-4 rounded-xl border bg-card p-4 text-sm leading-relaxed">
+                  <li className="elevated flex gap-4 rounded-xl border bg-card p-4 text-sm leading-relaxed">
                     <span className="font-mono text-xs text-brand">{String(k + 1).padStart(2, "0")}</span>
                     <span className="text-foreground/85">{h}</span>
                   </li>
@@ -146,7 +146,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </div>
 
         <aside className="lg:sticky lg:top-28 lg:self-start">
-          <Reveal className="rounded-2xl border bg-card p-5">
+          <Reveal className="elevated rounded-2xl border bg-card p-5">
             <dl className="space-y-4">
               {meta.map((m) => (
                 <div key={m.k}>
@@ -169,7 +169,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </aside>
       </div>
 
-      <nav className="mt-24 grid gap-4 border-t pt-10 sm:grid-cols-2">
+      <nav className="mt-24 grid grid-cols-1 gap-4 border-t pt-10 sm:grid-cols-2">
         <Link href={`/projects/${prev.slug}`} className="group rounded-2xl border p-5 transition-colors hover:bg-muted/40">
           <span className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
             <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" /> Newer
