@@ -33,7 +33,7 @@ export function Gallery({ items }: { items: Media[] }) {
             <figure>
               <button
                 onClick={() => setIndex(i)}
-                className="group relative block aspect-video w-full overflow-hidden rounded-xl border bg-surface"
+                className="elevated group relative block aspect-video w-full overflow-hidden rounded-xl border bg-surface"
                 aria-label={`Open ${m.alt}`}
               >
                 <ProjectMedia

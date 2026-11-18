@@ -24,7 +24,7 @@ export function StackChips({ stack, max = 4, className }: { stack: string[]; max
 
 export function ProjectCard({ project, wide = false }: { project: Project; wide?: boolean }) {
   return (
-    <div className={cn("relative h-full rounded-2xl border p-1.5", wide && "md:col-span-2")}>
+    <div className={cn("elevated relative h-full min-w-0 rounded-2xl border bg-card/50 p-1.5 dark:bg-transparent", wide && "md:col-span-2")}>
       <GlowingEffect spread={40} glow={false} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
       <Link
         href={`/projects/${project.slug}`}

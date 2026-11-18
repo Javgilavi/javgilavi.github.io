@@ -32,7 +32,7 @@ export function ProjectsExplorer() {
   return (
     <div>
       <div className="sticky top-20 z-30 -mx-2 mb-10 flex flex-col gap-3 rounded-2xl border bg-background/80 p-2 backdrop-blur-xl lg:flex-row lg:items-center">
-        <div className="flex gap-1 overflow-x-auto [scrollbar-width:none] lg:flex-wrap">
+        <div className="flex gap-1 overflow-x-auto pr-6 [scrollbar-width:none] [mask-image:linear-gradient(to_right,black_85%,transparent)] lg:flex-wrap lg:pr-0 lg:[mask-image:none]">
           {(["All", ...categories] as const).map((c) => (
             <button
               key={c}
@@ -86,7 +86,7 @@ export function ProjectsExplorer() {
       )}
 
       {view === "grid" ? (
-        <motion.div layout className="grid gap-4 md:grid-cols-2">
+        <motion.div layout className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((p) => (
               <motion.div

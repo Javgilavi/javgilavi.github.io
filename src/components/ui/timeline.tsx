@@ -38,7 +38,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               {item.subtitle && <p className="mt-1 font-mono text-xs text-muted-foreground">{item.subtitle}</p>}
             </div>
           </div>
-          <div className="relative w-full pl-14 md:pl-0">
+          <div className="relative w-full min-w-0 pl-10 md:pl-0">
             <div className="mb-3 md:hidden">
               <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
               {item.subtitle && <p className="font-mono text-xs text-muted-foreground">{item.subtitle}</p>}

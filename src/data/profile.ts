@@ -17,10 +17,13 @@ export const profile = {
   ],
   about: [
     "I'm a Spanish robotics engineer, born in Buenos Aires and trained in Seville. After a BSc and an MSc in electronics, robotics and automation at the University of Seville (top 10% and top 5%), I moved to the Netherlands for a second MSc in Robotics at TU Delft, focused on computer vision and AI.",
-    "Before Delft I worked on real systems: multi-obstacle tracking for a Navantia unmanned surface vessel at the GRVC lab, and Fast DDS middleware plus the SustainML backend at eProsima. Today I spend my time on 3D perception, vision-language-action policies and hackathon builds with real arms and humanoids, alongside part-time AI engineering at VIKTOR.",
-    "Outside the lab I connect students with industry as External Affairs at ASIMOV and lead perception for the Delft Neptunians underwater robotics team.",
+    "Before Delft I worked on real systems: multi-obstacle tracking for a Navantia unmanned surface vessel at the GRVC lab, and Fast DDS middleware plus the SustainML backend at eProsima. Today I do computer vision research at Hilti AG and collaborate with ETH Zurich's Computer Vision and Geometry group (CVG) on a paper in preparation. I also do part-time AI engineering at VIKTOR and hackathon builds with real arms, humanoids and robot dogs.",
+    "Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry as External Affairs at ASIMOV, and lead perception for the Delft Neptunians underwater robotics team.",
   ],
   now: [
+    { text: "Computer Vision Research at Hilti AG" },
+    { text: "Co-authoring a paper with ETH Zurich's Computer Vision and Geometry group (CVG)" },
+    { text: "Robotics Vertical Lead at EuroTech Federation" },
     { text: "MSc Robotics at TU Delft, computer vision & AI track" },
     { text: "AI Engineer (part-time) at VIKTOR, building MCP and RAG tooling" },
     { text: "Building memcard, a social diary for video games", href: "/projects/memcard" },
@@ -28,7 +31,7 @@ export const profile = {
   stats: [
     { value: "2+", label: "years in industry & research" },
     { value: "20+", label: "robotics & AI projects" },
-    { value: "5", label: "hackathons in 2026, four on real robots" },
+    { value: "2", label: "hackathon wins in 2026: RoboHack EPFL & ERH Zurich" },
     { value: "Top 5%", label: "MSc, University of Seville" },
   ],
   socials: {
@@ -56,6 +59,30 @@ export type Experience = {
 };
 
 export const experience: Experience[] = [
+  {
+    company: "Hilti AG",
+    role: "Computer Vision Research",
+    period: "2026 — present",
+    location: "Schaan, Liechtenstein",
+    href: "https://www.hilti.group",
+    points: [
+      "Computer vision research for construction: 3D perception and mapping from site captures.",
+    ],
+    tags: ["Computer vision", "3D perception", "SLAM"],
+  },
+  {
+    company: "ETH Zurich · Computer Vision and Geometry Group (CVG)",
+    role: "Research collaborator",
+    period: "Aug 2026 — present",
+    location: "Zurich, Switzerland (remote)",
+    href: "https://cvg.ethz.ch",
+    points: [
+      "Co-authoring a paper in preparation on geometric minimal solvers for camera pose estimation.",
+      "C++ solver work, RANSAC and numerical-stability studies, and real-data localization experiments on ETH3D.",
+      "Open-source fix merged into CVG's LIMAP mapping toolbox (multiscale line-descriptor serialization, PR #169).",
+    ],
+    tags: ["Multi-view geometry", "Minimal solvers", "C++", "PoseLib", "LIMAP"],
+  },
   {
     company: "VIKTOR",
     role: "AI Engineer (part-time)",
@@ -144,6 +171,12 @@ export const education = [
 
 export const leadership: { title: string; org: string; detail: string; period?: string }[] = [
   {
+    title: "Robotics Vertical Lead, EuroTech Federation",
+    org: "European student tech federation · co-organizer of the ERH Physical AI Hackathon",
+    detail: "Leading the robotics vertical: building a European community of robotics students and builders through hackathons, events and partners.",
+    period: "2026 — present",
+  },
+  {
     title: "External Affairs, ASIMOV",
     org: "TU Delft robotics study association · VI Board",
     detail: "Connecting more than 650 robotics engineers with companies such as MathWorks, NVIDIA and Festo, and with events and hackathons.",
@@ -175,6 +208,8 @@ export const leadership: { title: string; org: string; detail: string; period?: 
 ];
 
 export const awards: { title: string; detail: string; year: string; href?: string }[] = [
+  { title: "1st place — RoboHack 2026 at EPFL", detail: "ArgOS: natural-language control for a Unitree Go2", year: "2026", href: "https://github.com/JavideuS/argOS" },
+  { title: "Track prize — ERH Physical AI Hackathon, Zurich", detail: "Liminal: dual-arm manipulation with FLUX 3 Action and Claude", year: "2026", href: "https://javiergil.dev/liminal/" },
   {
     title: "Innovation Prize — XIX Entrepreneurship Ideas Competition",
     detail: "ServiAgro · University of Seville & Chamber of Commerce",
