@@ -1,24 +1,28 @@
+import { projects } from "./projects";
+
 export const profile = {
   name: "Javier Gil Avilés",
   shortName: "Javier Gil",
   role: "Perception & AI Robotics Engineer",
   location: "Delft, Netherlands",
   email: "jgilaviles@gmail.com",
+  status: "CV research at Hilti AG",
   headline:
-    "I build perception and learning systems that let robots understand and act in the real world.",
+    "I build perception and learning systems that let robots see, understand and act in the real world.",
   intro:
-    "MSc Robotics student at TU Delft with two years of industry and research experience across middleware, multi-sensor tracking and physical AI. I like the whole loop: sensors, models, planning, and the robot actually doing the thing.",
+    "Computer vision researcher at Hilti AG and MSc Robotics student at TU Delft, working with ETH Zurich's Computer Vision and Geometry group. Two years of industry and research experience across multi-sensor tracking, robotics middleware and physical AI, and two hackathon wins in 2026.",
   rotating: [
     "computer vision",
-    "sensor fusion",
-    "physical AI",
     "3D perception",
+    "multi-view geometry",
+    "sensor fusion",
     "robot learning",
+    "physical AI",
   ],
   about: [
-    "I'm a Spanish robotics engineer, born in Buenos Aires and trained in Seville. After a BSc and an MSc in electronics, robotics and automation at the University of Seville (top 10% and top 5%), I moved to the Netherlands for a second MSc in Robotics at TU Delft, focused on computer vision and AI.",
-    "Before Delft I worked on real systems: multi-obstacle tracking for a Navantia unmanned surface vessel at the GRVC lab, and Fast DDS middleware plus the SustainML backend at eProsima. Today I do computer vision research at Hilti AG and collaborate with ETH Zurich's Computer Vision and Geometry group (CVG) on a paper in preparation. I also do part-time AI engineering at VIKTOR and hackathon builds with real arms, humanoids and robot dogs.",
-    "Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry as External Affairs at ASIMOV, and lead perception for the Delft Neptunians underwater robotics team.",
+    "I'm a robotics engineer who likes the whole loop: sensors, models, planning, and the robot actually doing the thing. Today that means computer vision research at Hilti AG and a paper in preparation with ETH Zurich's Computer Vision and Geometry group, alongside my MSc in Robotics at TU Delft.",
+    "I was born in Buenos Aires and trained in Seville, where I finished a BSc and an MSc in electronics, robotics and automation (top 10% and top 5%). Along the way I built real-time multi-obstacle tracking for a Navantia uncrewed surface vessel at the GRVC lab and Fast DDS middleware at eProsima. I also do part-time AI engineering at VIKTOR.",
+    "I learn fastest on real hardware. In 2026 my teams won RoboHack at EPFL with a robot dog you command in plain language, and a track prize at the ERH Physical AI Hackathon in Zurich with dual-arm manipulation. Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry at ASIMOV and lead perception for the Delft Neptunians.",
   ],
   now: [
     { text: "Computer Vision Research at Hilti AG" },
@@ -30,7 +34,7 @@ export const profile = {
   ] as { text: string; href?: string }[],
   stats: [
     { value: "2+", label: "years in industry & research" },
-    { value: "20+", label: "robotics & AI projects" },
+    { value: String(projects.length), label: "robotics & AI projects on this site" },
     { value: "2", label: "hackathon wins in 2026: RoboHack EPFL & ERH Zurich" },
     { value: "Top 5%", label: "MSc, University of Seville" },
   ],
@@ -45,7 +49,7 @@ export const profile = {
     { name: "German", level: "A2" },
   ],
   openTo:
-    "Open to internships and roles in perception, computer vision and physical AI, worldwide.",
+    "Open to research collaborations, internships and roles in perception, computer vision and physical AI, worldwide.",
 } as const;
 
 export type Experience = {
