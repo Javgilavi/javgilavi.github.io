@@ -43,12 +43,12 @@ function RotatingWord({ words }: { words: readonly string[] }) {
 
 const HIGHLIGHTS = [
   { icon: Building2, text: "Computer vision research · Hilti AG" },
-  { icon: FlaskConical, text: "Paper in preparation · ETH Zurich CVG" },
+  { icon: FlaskConical, text: "Master thesis & paper · ETH Zurich CVG" },
   { icon: Trophy, text: "1st place · RoboHack 2026, EPFL" },
   { icon: Trophy, text: "BFL track winner · ERH Physical AI Hackathon, Zurich" },
   { icon: Trophy, text: "Winner · Alien Bazaar robotics hackathon, Warsaw" },
   { icon: Rocket, text: "Next: founding a physical AI company" },
-  { icon: GraduationCap, text: "MSc Robotics · TU Delft" },
+  { icon: GraduationCap, text: "MSc Robotics · TU Delft, top 5%" },
 ];
 
 function HighlightsMarquee() {

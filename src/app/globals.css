@@ -165,7 +165,7 @@
 }
 
 @utility mask-fade-b-soft {
-  mask-image: linear-gradient(to bottom, black 72%, transparent);
+  mask-image: linear-gradient(to bottom, black 82%, transparent);
 }
 
 @utility bg-grid {
