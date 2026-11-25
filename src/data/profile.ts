@@ -4,13 +4,13 @@ export const profile = {
   name: "Javier Gil Avilés",
   shortName: "Javier Gil",
   role: "Perception & AI Robotics Engineer",
-  location: "Delft, Netherlands",
+  location: "Feldkirch, Austria",
   email: "jgilaviles@gmail.com",
-  status: "CV research at Hilti AG",
+  status: "Open to opportunities & research",
   headline:
     "I build perception and learning systems that let robots see, understand and act in the real world.",
   intro:
-    "Computer vision researcher at Hilti AG and MSc Robotics student at TU Delft, working with ETH Zurich's Computer Vision and Geometry group. Two years of industry and research experience across multi-sensor tracking, robotics middleware and physical AI, and two hackathon wins in 2026.",
+    "Computer vision researcher at Hilti AG and MSc Robotics student at TU Delft, working with ETH Zurich's Computer Vision and Geometry group. 3+ years of industry and research experience across multi-sensor tracking, robotics middleware and physical AI, and three robotics hackathon wins in 2026. Based in Feldkirch, Austria.",
   rotating: [
     "computer vision",
     "3D perception",
@@ -22,7 +22,8 @@ export const profile = {
   about: [
     "I'm a robotics engineer who likes the whole loop: sensors, models, planning, and the robot actually doing the thing. Today that means computer vision research at Hilti AG and a paper in preparation with ETH Zurich's Computer Vision and Geometry group, alongside my MSc in Robotics at TU Delft.",
     "I was born in Buenos Aires and trained in Seville, where I finished a BSc and an MSc in electronics, robotics and automation (top 10% and top 5%). Along the way I built real-time multi-obstacle tracking for a Navantia uncrewed surface vessel at the GRVC lab and Fast DDS middleware at eProsima. I also do part-time AI engineering at VIKTOR.",
-    "I learn fastest on real hardware. In 2026 my teams won RoboHack at EPFL with a robot dog you command in plain language, and a track prize at the ERH Physical AI Hackathon in Zurich with dual-arm manipulation. Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry at ASIMOV and lead perception for the Delft Neptunians.",
+    "I learn fastest on real hardware. In 2026 my teams won three robotics hackathons: RoboHack at EPFL with a robot dog you command in plain language, the Black Forest Labs track at the ERH Physical AI Hackathon in Zurich with dual-arm manipulation, and the Alien Bazaar hackathon in Warsaw with a humanoid that maps a room and shares it through AR glasses. Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry at ASIMOV and lead perception for the Delft Neptunians.",
+    "I'm based in Feldkirch, Austria. Long term, I want to found my own physical AI company: robots that understand their surroundings well enough to do useful work in the real world.",
   ],
   now: [
     { text: "Computer Vision Research at Hilti AG" },
@@ -33,9 +34,9 @@ export const profile = {
     { text: "Building memcard, a social diary for video games", href: "/projects/memcard" },
   ] as { text: string; href?: string }[],
   stats: [
-    { value: "2+", label: "years in industry & research" },
+    { value: "3+", label: "years in industry & research" },
     { value: String(projects.length), label: "robotics & AI projects on this site" },
-    { value: "2", label: "hackathon wins in 2026: RoboHack EPFL & ERH Zurich" },
+    { value: "3", label: "robotics hackathon wins in 2026: EPFL, ERH Zurich & Warsaw" },
     { value: "Top 5%", label: "MSc, University of Seville" },
   ],
   socials: {
@@ -49,7 +50,7 @@ export const profile = {
     { name: "German", level: "A2" },
   ],
   openTo:
-    "Open to research collaborations, internships and roles in perception, computer vision and physical AI, worldwide.",
+    "Open to opportunities and research collaborations in perception, computer vision, robotics and physical AI, worldwide.",
 } as const;
 
 export type Experience = {
@@ -213,7 +214,8 @@ export const leadership: { title: string; org: string; detail: string; period?: 
 
 export const awards: { title: string; detail: string; year: string; href?: string }[] = [
   { title: "1st place — RoboHack 2026 at EPFL", detail: "ArgOS: natural-language control for a Unitree Go2", year: "2026", href: "https://github.com/JavideuS/argOS" },
-  { title: "Track prize — ERH Physical AI Hackathon, Zurich", detail: "Liminal: dual-arm manipulation with FLUX 3 Action and Claude", year: "2026", href: "https://javiergil.dev/liminal/" },
+  { title: "Winner — Alien Bazaar robotics hackathon, Warsaw", detail: "XRAY: a Unitree G1 that maps a room and shares it through AR glasses", year: "2026", href: "https://javiergil.dev/projects/g1-alien-bazaar/" },
+  { title: "Black Forest Labs track winner — ERH Physical AI Hackathon, Zurich", detail: "Liminal: dual-arm manipulation with FLUX 3 Action and Claude", year: "2026", href: "https://javiergil.dev/liminal/" },
   {
     title: "Innovation Prize — XIX Entrepreneurship Ideas Competition",
     detail: "ServiAgro · University of Seville & Chamber of Commerce",

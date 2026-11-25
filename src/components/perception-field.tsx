@@ -18,9 +18,25 @@ type Obj = {
   a: number;
 };
 
-const LABELS = ["person", "robot_arm", "chair", "box", "bottle", "table"];
+const LABELS = ["box", "bottle", "cup", "tool", "part", "can"];
 const TAU = Math.PI * 2;
 const BANDS = 6;
+
+/** Planar 3-link arm (shoulder, elbow, vertical tool) running a pick cycle over the tracked objects. */
+type Arm = {
+  bx: number;
+  by: number;
+  L1: number;
+  L2: number;
+  L3: number;
+  scale: number;
+  up: boolean; // elbow above (desktop) or below (phones, where the menu bar is above)
+  target: number;
+  phase: 0 | 1; // 0: moving to the object, 1: grasping
+  t0: number;
+  fx: number;
+  fy: number;
+};
 
 type Palette = { near: number[]; far: number[]; lit: string; ink: number; wedge: number };
 
@@ -33,10 +49,10 @@ const PALETTES: Record<"dark" | "light", Palette> = {
 const mix = (a: number[], b: number[], t: number) => a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(", ");
 
 /**
- * A LiDAR-style point field: scan rings around a sensor below the canvas, a sweeping beam
- * with a glowing wedge and afterglow, range-coloured points, sonar pings, and a few tracked
- * objects that drift, leave a track and get a labelled box when the beam passes. Points
- * part around the cursor.
+ * A small robot cell drawn as line art: a LiDAR-style point field (scan rings, a sweeping beam
+ * with a glowing wedge, range-coloured points, sonar pings), tracked objects that drift and
+ * get labelled boxes when the beam passes, and a 3-link arm that plans a path to each object
+ * and picks it, solved with inverse kinematics. Points part around the cursor.
  */
 export function PerceptionField({ className }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -56,6 +72,7 @@ export function PerceptionField({ className }: { className?: string }) {
       maxR = 1;
     let pts: Pt[] = [];
     let objs: Obj[] = [];
+    let arm: Arm | null = null;
     let raf = 0;
     let visible = true;
     const mouse = { x: -9999, y: -9999 };
@@ -113,10 +130,10 @@ export function PerceptionField({ className }: { className?: string }) {
       // (on phones, in the empty band above the text)
       const count = narrow ? 3 : 5;
       for (let k = 0; k < count; k++) {
-        const cx = narrow ? w * (0.14 + (k / count) * 0.72 + rand() * 0.06) : w * (0.6 + (k / count) * 0.32 + rand() * 0.04);
-        const cy = narrow ? h * (0.13 + rand() * 0.05) : h * (0.2 + rand() * 0.55);
-        const bw = 26 + rand() * 46;
-        const bh = 22 + rand() * 56;
+        const cx = narrow ? w * (0.22 + (k / count) * 0.6 + rand() * 0.04) : w * (0.6 + (k / count) * 0.3 + rand() * 0.04);
+        const cy = narrow ? h * (0.115 + rand() * 0.035) : h * (0.36 + rand() * 0.34);
+        const bw = narrow ? 24 + rand() * 18 : 28 + rand() * 34;
+        const bh = narrow ? 20 + rand() * 16 : 24 + rand() * 40;
         objs.push({
           cx,
           cy,
@@ -136,9 +153,182 @@ export function PerceptionField({ className }: { className?: string }) {
           pts.push({ x: (rand() - 0.5) * bw, y: (rand() - 0.5) * bh, a: 0, r: 0, band: 0, obj: k, dx: 0, dy: 0 });
         }
       }
+
+      // the arm stands on the right (on phones, beside the objects above the text)
+      arm = narrow
+        ? { bx: w * 0.9, by: h * 0.2, L1: w * 0.34, L2: w * 0.3, L3: w * 0.05, scale: 0.6, up: false, target: 0, phase: 0, t0: -1, fx: 0, fy: 0 }
+        : { bx: w * 0.86, by: h * 0.86, L1: h * 0.33, L2: h * 0.28, L3: h * 0.05, scale: 1, up: true, target: 0, phase: 0, t0: -1, fx: 0, fy: 0 };
+      arm.fx = arm.bx - arm.L2 * 0.6;
+      arm.fy = arm.by - arm.L1 * 0.9;
     };
 
     const angleTo = (x: number, y: number) => (Math.atan2(y - oy, x - ox) + TAU) % TAU;
+
+    const MOVE_S = 1.9;
+    const GRASP_S = 1.1;
+    const rgba = (a: number) => `rgba(${pal.lit}, ${Math.min(1, a)})`;
+
+    const drawArm = (A: Arm, t: number, ink: number) => {
+      const o = objs[A.target];
+      const gx = o.x;
+      const gy = o.y - o.h / 2 - 6; // approach the object from above
+      if (A.t0 < 0) A.t0 = t;
+      const u = reduce ? 1 : Math.min(1, (t - A.t0) / MOVE_S);
+      const cx = (A.fx + gx) / 2;
+      const cy = Math.min(A.fy, gy) - 70 * A.scale;
+      let px = gx,
+        py = gy,
+        grip = 1;
+      if (A.phase === 0) {
+        const e = u * u * (3 - 2 * u);
+        px = (1 - e) * (1 - e) * A.fx + 2 * (1 - e) * e * cx + e * e * gx;
+        py = (1 - e) * (1 - e) * A.fy + 2 * (1 - e) * e * cy + e * e * gy;
+        if (u >= 1 && !reduce) {
+          A.phase = 1;
+          A.t0 = t;
+        }
+      } else {
+        grip = 1 - Math.min(1, (t - A.t0) / 0.35);
+        if (t - A.t0 > GRASP_S) {
+          A.phase = 0;
+          A.t0 = t;
+          A.fx = gx;
+          A.fy = gy;
+          A.target = (A.target + 1) % objs.length;
+        }
+      }
+
+      // inverse kinematics for the wrist; the tool hangs straight down from it
+      const { bx, by, L1, L2, L3 } = A;
+      const wx = px;
+      const wy = py - L3;
+      const dist = Math.max(Math.abs(L1 - L2) + 0.5, Math.min(L1 + L2 - 0.5, Math.hypot(wx - bx, wy - by)));
+      const aim = Math.atan2(wy - by, wx - bx);
+      const q2a = Math.acos(Math.max(-1, Math.min(1, (dist * dist - L1 * L1 - L2 * L2) / (2 * L1 * L2))));
+      const solve = (q2: number) => {
+        const q1 = aim - Math.atan2(L2 * Math.sin(q2), L1 + L2 * Math.cos(q2));
+        return { q1, q2, ex: bx + L1 * Math.cos(q1), ey: by + L1 * Math.sin(q1) };
+      };
+      const s1 = solve(q2a);
+      const s2 = solve(-q2a);
+      const S = (s1.ey < s2.ey) === A.up ? s1 : s2;
+      const wX = S.ex + L2 * Math.cos(S.q1 + S.q2);
+      const wY = S.ey + L2 * Math.sin(S.q1 + S.q2);
+      const tX = wX;
+      const tY = wY + L3;
+      const sc = A.scale;
+
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      // planned trajectory with waypoints while moving
+      if (A.phase === 0 && !reduce) {
+        ctx.setLineDash([3, 6]);
+        ctx.strokeStyle = rgba(0.45 * ink);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(A.fx, A.fy);
+        ctx.quadraticCurveTo(cx, cy, gx, gy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = rgba(0.6 * ink);
+        for (let i = 1; i < 6; i++) {
+          const e = i / 6;
+          const qx = (1 - e) * (1 - e) * A.fx + 2 * (1 - e) * e * cx + e * e * gx;
+          const qy = (1 - e) * (1 - e) * A.fy + 2 * (1 - e) * e * cy + e * e * gy;
+          ctx.fillRect(qx - 1.5, qy - 1.5, 3, 3);
+        }
+      }
+
+      // target reticle + task label
+      const rr = 9 * sc + 4;
+      ctx.strokeStyle = rgba(0.8 * ink);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(gx, gy, rr, 0, TAU);
+      ctx.moveTo(gx - rr - 5, gy); ctx.lineTo(gx - rr + 3, gy);
+      ctx.moveTo(gx + rr - 3, gy); ctx.lineTo(gx + rr + 5, gy);
+      ctx.moveTo(gx, gy - rr - 5); ctx.lineTo(gx, gy - rr + 3);
+      ctx.stroke();
+      ctx.fillStyle = rgba(0.95 * ink);
+      const task = A.phase === 0 ? `plan → pick(${o.label})` : `grasp ✓ ${o.label}`;
+      const taskW = ctx.measureText(task).width;
+      ctx.fillText(task, gx + rr + 8 + taskW > w - 4 ? gx - rr - 8 - taskW : gx + rr + 8, gy - rr - 2);
+
+      // pedestal
+      const pw = 30 * sc;
+      const ph = 34 * sc;
+      ctx.fillStyle = rgba(0.08 * ink);
+      ctx.strokeStyle = rgba(0.55 * ink);
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(bx - pw * 0.45, by);
+      ctx.lineTo(bx + pw * 0.45, by);
+      ctx.lineTo(bx + pw, by + ph);
+      ctx.lineTo(bx - pw, by + ph);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(bx - pw * 1.6, by + ph);
+      ctx.lineTo(bx + pw * 1.6, by + ph);
+      ctx.stroke();
+
+      // links: translucent body + bright centre line
+      const link = (x1: number, y1: number, x2: number, y2: number, wBody: number) => {
+        ctx.strokeStyle = rgba(0.1 * ink);
+        ctx.lineWidth = wBody;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+        ctx.strokeStyle = rgba(0.75 * ink);
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      };
+      link(bx, by, S.ex, S.ey, 16 * sc);
+      link(S.ex, S.ey, wX, wY, 13 * sc);
+      link(wX, wY, tX, tY, 8 * sc);
+
+      // gripper fingers
+      const fo = (3 + grip * 7) * sc;
+      const fl = 12 * sc;
+      ctx.strokeStyle = rgba(0.85 * ink);
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(tX - fo - 2, tY); ctx.lineTo(tX + fo + 2, tY);
+      ctx.moveTo(tX - fo, tY); ctx.lineTo(tX - fo * 0.7, tY + fl);
+      ctx.moveTo(tX + fo, tY); ctx.lineTo(tX + fo * 0.7, tY + fl);
+      ctx.stroke();
+
+      // joints
+      const joint = (x: number, y: number, r: number) => {
+        ctx.fillStyle = rgba(0.16 * ink);
+        ctx.strokeStyle = rgba(0.9 * ink);
+        ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = rgba(0.95 * ink);
+        ctx.beginPath(); ctx.arc(x, y, 1.8, 0, TAU); ctx.fill();
+      };
+      joint(bx, by, 9 * sc + 2);
+      joint(S.ex, S.ey, 8 * sc + 2);
+      joint(wX, wY, 6 * sc + 2);
+
+      // joint readouts
+      const deg = (r: number) => Math.round((((r * 180) / Math.PI) % 360 + 540) % 360 - 180);
+      ctx.fillStyle = rgba(0.75 * ink);
+      const readout = (text: string, x: number, y: number, off: number) => {
+        const tw = ctx.measureText(text).width;
+        ctx.fillText(text, x + off + tw > w - 4 ? x - off - tw : x + off, y - 6);
+      };
+      readout(`θ1 ${deg(-S.q1)}°`, bx, by, 14 * sc + 6);
+      readout(`θ2 ${deg(-S.q2)}°`, S.ex, S.ey, 12 * sc + 6);
+
+      // tool frame: x in rose, z (down) in the brand colour
+      const ax = 16 * sc + 6;
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = `rgba(244, 63, 94, ${0.85 * Math.min(ink, 1.1)})`;
+      ctx.beginPath(); ctx.moveTo(wX, wY); ctx.lineTo(wX + ax, wY); ctx.stroke();
+      ctx.strokeStyle = `rgba(99, 102, 241, ${0.85 * Math.min(ink, 1.1)})`;
+      ctx.beginPath(); ctx.moveTo(wX, wY); ctx.lineTo(wX, wY - ax); ctx.stroke();
+    };
 
     const start = performance.now();
     let lastSweep = Math.PI;
@@ -271,7 +461,9 @@ export function PerceptionField({ className }: { className?: string }) {
         let d = (sweep - o.a) * dir;
         if (d > Math.PI) d -= TAU;
         if (d < -Math.PI) d += TAU;
-        const k = reduce ? 0.85 : d >= 0 ? Math.exp(-d * 1.6) : Math.exp(d * 18);
+        let k = reduce ? 0.85 : d >= 0 ? Math.exp(-d * 1.6) : Math.exp(d * 18);
+        const targeted = arm !== null && objs[arm.target] === o;
+        if (targeted) k = Math.max(k, arm!.phase === 1 ? 1 : 0.75);
         if (k < 0.04) continue;
 
         // dotted track of where the object has been
@@ -310,6 +502,8 @@ export function PerceptionField({ className }: { className?: string }) {
         ctx.fillStyle = `rgba(${pal.lit}, ${0.8 * k * ink})`;
         ctx.fillRect(x, y - 4, tw * o.conf, 1.5);
       }
+
+      if (arm) drawArm(arm, t, ink);
 
       // the sensor, pulsing just inside the bottom edge
       if (oy - h < 60) {

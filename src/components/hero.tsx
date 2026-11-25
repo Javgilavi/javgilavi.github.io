@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowDown, ArrowRight, Building2, Command, FlaskConical, GraduationCap, MapPin, Trophy } from "lucide-react";
+import { ArrowDown, ArrowRight, Building2, Command, FlaskConical, GraduationCap, MapPin, Rocket, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spotlight } from "@/components/ui/spotlight-new";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -45,7 +45,9 @@ const HIGHLIGHTS = [
   { icon: Building2, text: "Computer vision research · Hilti AG" },
   { icon: FlaskConical, text: "Paper in preparation · ETH Zurich CVG" },
   { icon: Trophy, text: "1st place · RoboHack 2026, EPFL" },
-  { icon: Trophy, text: "Track prize · ERH Physical AI Hackathon, Zurich" },
+  { icon: Trophy, text: "BFL track winner · ERH Physical AI Hackathon, Zurich" },
+  { icon: Trophy, text: "Winner · Alien Bazaar robotics hackathon, Warsaw" },
+  { icon: Rocket, text: "Next: founding a physical AI company" },
   { icon: GraduationCap, text: "MSc Robotics · TU Delft" },
 ];
 
@@ -93,7 +95,7 @@ export function Hero() {
         <div className="absolute -bottom-32 -left-24 size-[16rem] animate-[aurora-a_26s_ease-in-out_infinite_reverse] rounded-full bg-sky-300/15 blur-[100px] sm:size-[24rem] sm:bg-sky-300/20 sm:blur-[120px] dark:bg-sky-500/[0.06]" />
         <div className="absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_65%_55%_at_72%_30%,black,transparent)] dark:opacity-25" />
       </div>
-      <PerceptionField className="absolute inset-0 -z-10 h-full w-full mask-fade-b-soft md:mask-fade-b" />
+      <PerceptionField className="absolute inset-0 -z-10 h-full w-full mask-fade-b-soft" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <div className="mx-auto w-full max-w-5xl px-6 pt-28 pb-20">
@@ -103,9 +105,9 @@ export function Hero() {
             <span className="relative inline-flex size-2 rounded-full bg-brand" />
           </span>
           {profile.status}
-          <span className="text-border">|</span>
-          <MapPin className="size-3" />
-          {profile.location}
+          <span className="hidden text-border sm:inline">|</span>
+          <MapPin className="hidden size-3 sm:block" />
+          <span className="hidden sm:inline">{profile.location}</span>
         </motion.div>
 
         <motion.h1 {...fade(0.2)} className="text-5xl font-semibold tracking-tighter text-balance sm:text-7xl">
