@@ -42,7 +42,7 @@ function RotatingWord({ words }: { words: readonly string[] }) {
 }
 
 const HIGHLIGHTS = [
-  { icon: Building2, text: "Computer vision research · Hilti AG" },
+  { icon: Building2, text: "Computer vision research intern · Hilti AG" },
   { icon: FlaskConical, text: "Master thesis & paper · ETH Zurich CVG" },
   { icon: Trophy, text: "1st place · RoboHack 2026, EPFL" },
   { icon: Trophy, text: "BFL track winner · ERH Physical AI Hackathon, Zurich" },

@@ -10,7 +10,7 @@ export const profile = {
   headline:
     "I build perception and learning systems that let robots see, understand and act in the real world.",
   intro:
-    "Computer vision researcher at Hilti AG and MSc Robotics student at TU Delft (top 5%), doing my master thesis with ETH Zurich's Computer Vision and Geometry group (CVG). 3+ years of industry and research experience across multi-sensor tracking, robotics middleware and physical AI, and three robotics hackathon wins in 2026. Based in Feldkirch, Austria.",
+    "Computer vision research intern at Hilti AG and MSc Robotics student at TU Delft (top 5%), doing my master thesis with ETH Zurich's Computer Vision and Geometry group (CVG). 3+ years of industry and research experience across multi-sensor tracking, robotics middleware and physical AI, and three robotics hackathon wins in 2026. Based in Feldkirch, Austria.",
   rotating: [
     "computer vision",
     "3D perception",
@@ -20,18 +20,17 @@ export const profile = {
     "physical AI",
   ],
   about: [
-    "I'm a robotics engineer who likes the whole loop: sensors, models, planning, and the robot actually doing the thing. Today that means computer vision research at Hilti AG, plus my master thesis and a paper in preparation with ETH Zurich's Computer Vision and Geometry group (CVG).",
-    "I'm Spanish, from Seville, though I was born in Buenos Aires, Argentina. In Seville I finished a BSc and an MSc in electronics, robotics and automation (top 10% and top 5%), then moved to the Netherlands for a second MSc in Robotics at TU Delft, focused on computer vision and machine learning, where I'm in the top 5%. Along the way I built real-time multi-obstacle tracking for a Navantia uncrewed surface vessel at the GRVC lab and Fast DDS middleware at eProsima, and I now do part-time AI engineering at VIKTOR.",
+    "I'm a robotics engineer who likes the whole loop: sensors, models, planning, and the robot actually doing the thing. Today that means a computer vision research internship at Hilti AG, plus my master thesis and a paper in preparation with ETH Zurich's Computer Vision and Geometry group (CVG).",
+    "I'm Spanish, from Seville, though I was born in Buenos Aires, Argentina. In Seville I finished a BSc and an MSc in electronics, robotics and automation (top 10% and top 5%), then moved to the Netherlands for a second MSc in Robotics at TU Delft, focused on computer vision and machine learning, where I'm in the top 5%. Along the way I built real-time multi-obstacle tracking for a Navantia uncrewed surface vessel at the GRVC lab, Fast DDS middleware at eProsima, and MCP and RAG tooling at VIKTOR.",
     "I learn fastest on real hardware. In 2026 my teams won three robotics hackathons: RoboHack at EPFL with a robot dog you command in plain language, the Black Forest Labs track at the ERH Physical AI Hackathon in Zurich with dual-arm manipulation, and the Alien Bazaar hackathon in Warsaw with a humanoid that maps a room and shares it through AR glasses. Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry at ASIMOV and lead perception for the Delft Neptunians.",
     "I'm based in Feldkirch, Austria. My ambition is to become one of the leading minds in physical AI and use it to change the world: robots that understand their surroundings well enough to do truly useful work. Long term, that means founding my own physical AI company.",
   ],
   now: [
-    { text: "Computer Vision Research at Hilti AG" },
+    { text: "Computer Vision Research Intern at Hilti AG" },
     { text: "Master thesis at ETH Zurich's Computer Vision and Geometry group (CVG)" },
     { text: "Co-authoring a paper with ETH Zurich CVG" },
     { text: "Robotics Vertical Lead at EuroTech Federation" },
     { text: "MSc Robotics at TU Delft (top 5%), focused on computer vision & machine learning" },
-    { text: "AI Engineer (part-time) at VIKTOR, building MCP and RAG tooling" },
     { text: "Building memcard, a social diary for video games", href: "/projects/memcard" },
   ] as { text: string; href?: string }[],
   stats: [
@@ -67,12 +66,12 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     company: "Hilti AG",
-    role: "Computer Vision Research",
+    role: "Computer Vision Research Intern",
     period: "2026 — present",
     location: "Schaan, Liechtenstein",
     href: "https://www.hilti.group",
     points: [
-      "Computer vision research for construction: 3D perception and mapping from site captures.",
+      "Computer vision research internship on construction: 3D perception and mapping from site captures.",
     ],
     tags: ["Computer vision", "3D perception", "SLAM"],
   },
@@ -93,7 +92,7 @@ export const experience: Experience[] = [
   {
     company: "VIKTOR",
     role: "AI Engineer (part-time)",
-    period: "Mar 2026 — present",
+    period: "Mar 2026 — 2026",
     location: "Rotterdam, Netherlands",
     href: "https://www.viktor.ai",
     points: [
