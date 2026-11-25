@@ -165,7 +165,7 @@
 }
 
 @utility mask-fade-b-soft {
-  mask-image: linear-gradient(to bottom, black 72%, transparent);
+  mask-image: linear-gradient(to bottom, black 82%, transparent);
 }
 
 @utility bg-grid {
@@ -185,6 +185,23 @@
 
 @utility text-balance {
   text-wrap: balance;
+}
+
+@keyframes aurora-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-6%, 8%, 0) scale(1.12); }
+}
+
+@keyframes aurora-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(10%, -6%, 0) scale(0.9); }
+}
+
+@keyframes portrait-scan {
+  0% { top: 0%; opacity: 0; }
+  6% { opacity: 0.9; }
+  50% { top: 100%; opacity: 0.9; }
+  54%, 100% { top: 100%; opacity: 0; }
 }
 
 @keyframes marquee {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowDown, ArrowRight, Command, MapPin } from "lucide-react";
+import { ArrowDown, ArrowRight, Building2, Command, FlaskConical, GraduationCap, MapPin, Rocket, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spotlight } from "@/components/ui/spotlight-new";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -41,6 +41,36 @@ function RotatingWord({ words }: { words: readonly string[] }) {
   );
 }
 
+const HIGHLIGHTS = [
+  { icon: Building2, text: "Computer vision research · Hilti AG" },
+  { icon: FlaskConical, text: "Master thesis & paper · ETH Zurich CVG" },
+  { icon: Trophy, text: "1st place · RoboHack 2026, EPFL" },
+  { icon: Trophy, text: "BFL track winner · ERH Physical AI Hackathon, Zurich" },
+  { icon: Trophy, text: "Winner · Alien Bazaar robotics hackathon, Warsaw" },
+  { icon: Rocket, text: "Next: founding a physical AI company" },
+  { icon: GraduationCap, text: "MSc Robotics · TU Delft, top 5%" },
+];
+
+function HighlightsMarquee() {
+  const row = [...HIGHLIGHTS, ...HIGHLIGHTS];
+  return (
+    <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+      <div className="flex w-max marquee-track gap-3 [animation-duration:32s] hover:[animation-play-state:paused]">
+        {row.map((h, i) => (
+          <span
+            key={i}
+            aria-hidden={i >= HIGHLIGHTS.length}
+            className="inline-flex items-center gap-2 rounded-full border bg-background/60 px-3.5 py-1.5 text-xs whitespace-nowrap text-muted-foreground backdrop-blur"
+          >
+            <h.icon className="size-3.5 text-brand" />
+            {h.text}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
   animate: { opacity: 1, y: 0, filter: "blur(0px)" },
@@ -58,11 +88,14 @@ export function Hero() {
           gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(168, 80%, 85%, .03) 0, hsla(168, 80%, 45%, .01) 80%, transparent 100%)"
         />
       </div>
-      <div className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(55%_60%_at_78%_18%,color-mix(in_oklch,var(--brand)_16%,transparent),transparent_70%)]" />
-        <div className="absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_65%_55%_at_72%_30%,black,transparent)]" />
+      {/* slow aurora behind the field, both themes */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-40 -right-24 size-[22rem] animate-[aurora-a_18s_ease-in-out_infinite] rounded-full bg-brand/20 blur-[100px] sm:size-[38rem] sm:bg-brand/25 sm:blur-[120px] dark:bg-brand/10" />
+        <div className="absolute top-1/3 right-1/3 size-[16rem] animate-[aurora-b_24s_ease-in-out_infinite] rounded-full bg-indigo-400/15 blur-[100px] sm:size-[26rem] sm:bg-indigo-400/20 sm:blur-[120px] dark:bg-indigo-500/10" />
+        <div className="absolute -bottom-32 -left-24 size-[16rem] animate-[aurora-a_26s_ease-in-out_infinite_reverse] rounded-full bg-sky-300/15 blur-[100px] sm:size-[24rem] sm:bg-sky-300/20 sm:blur-[120px] dark:bg-sky-500/[0.06]" />
+        <div className="absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_65%_55%_at_72%_30%,black,transparent)] dark:opacity-25" />
       </div>
-      <PerceptionField className="absolute inset-0 -z-10 h-full w-full mask-fade-b-soft md:mask-fade-b" />
+      <PerceptionField className="absolute inset-0 -z-10 h-full w-full mask-fade-b-soft" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <div className="mx-auto w-full max-w-5xl px-6 pt-28 pb-20">
@@ -71,10 +104,10 @@ export function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
             <span className="relative inline-flex size-2 rounded-full bg-brand" />
           </span>
-          Open to internships & roles
-          <span className="text-border">|</span>
-          <MapPin className="size-3" />
-          {profile.location}
+          {profile.status}
+          <span className="hidden text-border sm:inline">|</span>
+          <MapPin className="hidden size-3 sm:block" />
+          <span className="hidden sm:inline">{profile.location}</span>
         </motion.div>
 
         <motion.h1 {...fade(0.2)} className="text-5xl font-semibold tracking-tighter text-balance sm:text-7xl">
@@ -103,10 +136,14 @@ export function Hero() {
           <SocialLinks className="ml-1" />
         </motion.div>
 
+        <motion.div {...fade(1.05)} className="mt-12 max-w-3xl">
+          <HighlightsMarquee />
+        </motion.div>
+
         <motion.button
           {...fade(1.1)}
           onClick={open}
-          className="mt-10 hidden items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+          className="mt-8 hidden items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
         >
           Tip: press
           <kbd className="inline-flex items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">

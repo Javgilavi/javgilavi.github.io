@@ -11,29 +11,19 @@ import { Reveal, SectionHeading } from "@/components/reveal";
 import { ProjectCard } from "@/components/project-card";
 import { SocialLinks } from "@/components/social-links";
 import { ProjectIcon } from "@/components/project-icon";
+import { PerceptionPortrait } from "@/components/perception-portrait";
+import { CountUp } from "@/components/count-up";
 import { awards, education, experience, leadership, profile, skills } from "@/data/profile";
 import { featuredProjects, projects, sortedProjects } from "@/data/projects";
-import { asset } from "@/lib/utils";
 
 export function About() {
   return (
     <section id="about" className="mx-auto max-w-5xl px-6 py-16 sm:py-32">
       <SectionHeading index="01" label="About" title="Robots that see, understand and act." />
       <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-        <Reveal className="relative">
-          <div className="elevated group relative overflow-hidden rounded-2xl border bg-surface">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={asset("/media/me.webp")}
-              alt="Javier Gil Avilés working with a robot"
-              className="aspect-[4/5] w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0"
-            />
-            <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-xl border border-white/10 bg-black/50 px-3 py-2 font-mono text-[11px] text-white/85 backdrop-blur-md">
-              <span>{profile.location}</span>
-              <span className="flex items-center gap-1.5">
-                <span className="size-1.5 rounded-full bg-emerald-400" /> available
-              </span>
-            </div>
+        <Reveal className="relative md:h-full">
+          <div className="md:sticky md:top-28">
+            <PerceptionPortrait location={profile.location} />
           </div>
         </Reveal>
         <div className="flex flex-col gap-6">
@@ -70,7 +60,9 @@ export function About() {
             <dl className="elevated mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-4">
               {profile.stats.map((s) => (
                 <div key={s.label} className="bg-card p-4 dark:bg-background">
-                  <dt className="text-2xl font-semibold tracking-tight">{s.value}</dt>
+                  <dt className="text-2xl font-semibold tracking-tight">
+                    <CountUp value={s.value} />
+                  </dt>
                   <dd className="mt-1 text-xs leading-snug text-muted-foreground">{s.label}</dd>
                 </div>
               ))}
@@ -99,7 +91,7 @@ export function Work() {
         index="02"
         label="Selected work"
         title="Things I've built."
-        description="Physical-AI hackathon builds, perception pipelines, research and products. Open any card for the full story, media and links."
+        description="Prize-winning hackathon robots, perception pipelines, research and products. Open any card for the story, the media and the code."
         action={
           <Button asChild variant="outline" className="rounded-full">
             <Link href="/projects">
@@ -199,7 +191,12 @@ export function Skills() {
   return (
     <section id="skills" className="py-16 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
-        <SectionHeading index="04" label="Toolbox" title="Skills & tools." />
+        <SectionHeading
+          index="04"
+          label="Toolbox"
+          title="Skills & tools."
+          description="What I reach for, grouped by where it sits in the robot stack: from sensors and models to the cloud."
+        />
       </div>
       <div className="relative mb-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div className="flex w-max marquee-track gap-4 hover:[animation-play-state:paused]">

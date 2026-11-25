@@ -1,38 +1,44 @@
+import { projects } from "./projects";
+
 export const profile = {
   name: "Javier Gil Avilés",
   shortName: "Javier Gil",
   role: "Perception & AI Robotics Engineer",
-  location: "Delft, Netherlands",
+  location: "Feldkirch, Austria",
   email: "jgilaviles@gmail.com",
+  status: "Open to opportunities & research",
   headline:
-    "I build perception and learning systems that let robots understand and act in the real world.",
+    "I build perception and learning systems that let robots see, understand and act in the real world.",
   intro:
-    "MSc Robotics student at TU Delft with two years of industry and research experience across middleware, multi-sensor tracking and physical AI. I like the whole loop: sensors, models, planning, and the robot actually doing the thing.",
+    "Computer vision researcher at Hilti AG and MSc Robotics student at TU Delft (top 5%), doing my master thesis with ETH Zurich's Computer Vision and Geometry group (CVG). 3+ years of industry and research experience across multi-sensor tracking, robotics middleware and physical AI, and three robotics hackathon wins in 2026. Based in Feldkirch, Austria.",
   rotating: [
     "computer vision",
-    "sensor fusion",
-    "physical AI",
     "3D perception",
+    "multi-view geometry",
+    "sensor fusion",
     "robot learning",
+    "physical AI",
   ],
   about: [
-    "I'm a Spanish robotics engineer, born in Buenos Aires and trained in Seville. After a BSc and an MSc in electronics, robotics and automation at the University of Seville (top 10% and top 5%), I moved to the Netherlands for a second MSc in Robotics at TU Delft, focused on computer vision and AI.",
-    "Before Delft I worked on real systems: multi-obstacle tracking for a Navantia unmanned surface vessel at the GRVC lab, and Fast DDS middleware plus the SustainML backend at eProsima. Today I do computer vision research at Hilti AG and collaborate with ETH Zurich's Computer Vision and Geometry group (CVG) on a paper in preparation. I also do part-time AI engineering at VIKTOR and hackathon builds with real arms, humanoids and robot dogs.",
-    "Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry as External Affairs at ASIMOV, and lead perception for the Delft Neptunians underwater robotics team.",
+    "I'm a robotics engineer who likes the whole loop: sensors, models, planning, and the robot actually doing the thing. Today that means computer vision research at Hilti AG, my master thesis and a paper in preparation with ETH Zurich's Computer Vision and Geometry group (CVG), and my MSc in Robotics at TU Delft, where I'm in the top 5%.",
+    "I was born in Buenos Aires and trained in Seville, where I finished a BSc and an MSc in electronics, robotics and automation (top 10% and top 5%). Along the way I built real-time multi-obstacle tracking for a Navantia uncrewed surface vessel at the GRVC lab and Fast DDS middleware at eProsima. I also do part-time AI engineering at VIKTOR.",
+    "I learn fastest on real hardware. In 2026 my teams won three robotics hackathons: RoboHack at EPFL with a robot dog you command in plain language, the Black Forest Labs track at the ERH Physical AI Hackathon in Zurich with dual-arm manipulation, and the Alien Bazaar hackathon in Warsaw with a humanoid that maps a room and shares it through AR glasses. Outside the lab I lead the robotics vertical at EuroTech Federation, connect students with industry at ASIMOV and lead perception for the Delft Neptunians.",
+    "I'm based in Feldkirch, Austria. Long term, I want to found my own physical AI company: robots that understand their surroundings well enough to do useful work in the real world.",
   ],
   now: [
     { text: "Computer Vision Research at Hilti AG" },
-    { text: "Co-authoring a paper with ETH Zurich's Computer Vision and Geometry group (CVG)" },
+    { text: "Master thesis at ETH Zurich's Computer Vision and Geometry group (CVG)" },
+    { text: "Co-authoring a paper with ETH Zurich CVG" },
     { text: "Robotics Vertical Lead at EuroTech Federation" },
-    { text: "MSc Robotics at TU Delft, computer vision & AI track" },
+    { text: "MSc Robotics at TU Delft (top 5%), computer vision & AI track" },
     { text: "AI Engineer (part-time) at VIKTOR, building MCP and RAG tooling" },
     { text: "Building memcard, a social diary for video games", href: "/projects/memcard" },
   ] as { text: string; href?: string }[],
   stats: [
-    { value: "2+", label: "years in industry & research" },
-    { value: "20+", label: "robotics & AI projects" },
-    { value: "2", label: "hackathon wins in 2026: RoboHack EPFL & ERH Zurich" },
-    { value: "Top 5%", label: "MSc, University of Seville" },
+    { value: "3+", label: "years in industry & research" },
+    { value: String(projects.length), label: "robotics & AI projects on this site" },
+    { value: "3", label: "robotics hackathon wins in 2026: EPFL, ERH Zurich & Warsaw" },
+    { value: "Top 5%", label: "MSc at TU Delft and at the University of Seville" },
   ],
   socials: {
     github: "https://github.com/Javgilavi",
@@ -45,7 +51,7 @@ export const profile = {
     { name: "German", level: "A2" },
   ],
   openTo:
-    "Open to internships and roles in perception, computer vision and physical AI, worldwide.",
+    "Open to opportunities and research collaborations in perception, computer vision, robotics and physical AI, worldwide.",
 } as const;
 
 export type Experience = {
@@ -72,11 +78,12 @@ export const experience: Experience[] = [
   },
   {
     company: "ETH Zurich · Computer Vision and Geometry Group (CVG)",
-    role: "Research collaborator",
+    role: "Master thesis & research collaborator",
     period: "Aug 2026 — present",
     location: "Zurich, Switzerland (remote)",
     href: "https://cvg.ethz.ch",
     points: [
+      "Master thesis in ETH Zurich's Computer Vision and Geometry Group.",
       "Co-authoring a paper in preparation on geometric minimal solvers for camera pose estimation.",
       "C++ solver work, RANSAC and numerical-stability studies, and real-data localization experiments on ETH3D.",
       "Open-source fix merged into CVG's LIMAP mapping toolbox (multiscale line-descriptor serialization, PR #169).",
@@ -151,7 +158,7 @@ export const education = [
     degree: "MSc Robotics",
     period: "2025 — present",
     detail:
-      "Computer vision & AI track: Machine Learning for Robotics, Advanced Machine Perception, Computer Vision, 3D Vision. Honours Programme student.",
+      "Top 5%. Computer vision & AI track: Machine Learning for Robotics, Advanced Machine Perception, Computer Vision, 3D Vision. Honours Programme student. Master thesis at ETH Zurich's Computer Vision and Geometry Group (CVG).",
   },
   {
     school: "University of Seville",
@@ -209,7 +216,8 @@ export const leadership: { title: string; org: string; detail: string; period?: 
 
 export const awards: { title: string; detail: string; year: string; href?: string }[] = [
   { title: "1st place — RoboHack 2026 at EPFL", detail: "ArgOS: natural-language control for a Unitree Go2", year: "2026", href: "https://github.com/JavideuS/argOS" },
-  { title: "Track prize — ERH Physical AI Hackathon, Zurich", detail: "Liminal: dual-arm manipulation with FLUX 3 Action and Claude", year: "2026", href: "https://javiergil.dev/liminal/" },
+  { title: "Winner — Alien Bazaar robotics hackathon, Warsaw", detail: "XRAY: a Unitree G1 that maps a room and shares it through AR glasses", year: "2026", href: "https://javiergil.dev/projects/g1-alien-bazaar/" },
+  { title: "Black Forest Labs track winner — ERH Physical AI Hackathon, Zurich", detail: "Liminal: dual-arm manipulation with FLUX 3 Action and Claude", year: "2026", href: "https://javiergil.dev/liminal/" },
   {
     title: "Innovation Prize — XIX Entrepreneurship Ideas Competition",
     detail: "ServiAgro · University of Seville & Chamber of Commerce",
